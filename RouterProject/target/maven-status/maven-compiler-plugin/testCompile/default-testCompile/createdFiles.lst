@@ -1,0 +1,3 @@
+com\routerpasswords\tests\FindAndStorePasswordTest.class
+com\routerpasswords\utils\PropertiesFileReader.class
+com\routerpasswords\tests\BaseTest.class
