@@ -24,7 +24,9 @@ public class RouterPasswordsResultsPage extends BasePage{
 
     public void storeRouterDetails() throws Exception {
         waitForJavaScriptToLoad(driver);
+        reloadPageIfNotLoaded(driver);
         waitForElementToLoad(driver, Duration.ofSeconds(30),routerPasswordsHeading);
+        reloadPageIfNotLoaded(driver);
         WebElement tableElement=driver.findElement(routerTable);
         scrollToElement(driver,tableElement);
         List<WebElement> tableRows=tableElement.findElements(By.tagName("tr"));
@@ -34,6 +36,6 @@ public class RouterPasswordsResultsPage extends BasePage{
             tableColumns=tableRows.get(i).findElements(By.tagName("td"));
             listDetails.add(new RouterDefaultPasswords(tableColumns.get(1).getText(),tableColumns.get(3).getText()));
         }
-        ExcelUtils.writeData(listDetails);
+        ExcelUtils.writeAllDataInSingleFile(listDetails);
     }
 }

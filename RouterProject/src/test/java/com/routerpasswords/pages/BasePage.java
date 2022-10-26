@@ -1,5 +1,6 @@
 package com.routerpasswords.pages;
 
+import com.routerpasswords.utils.PropertiesFileReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -39,5 +40,16 @@ public class BasePage {
                 break;
             }
         }
+    }
+
+    public void reloadPageIfNotLoaded(WebDriver driver) throws Exception {
+        PropertiesFileReader propertiesInstance = PropertiesFileReader.getInstance();
+        String url=propertiesInstance.getProperty("url");
+        String updatedUrl=url.replace("https://","");
+        int maxCount=10;
+        do{
+            driver.navigate().refresh();
+            maxCount--;
+        }while (driver.getTitle().contains(updatedUrl) && maxCount>0);
     }
 }
