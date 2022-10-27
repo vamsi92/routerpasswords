@@ -52,4 +52,9 @@ public class BasePage {
             maxCount--;
         }while (driver.getTitle().contains(updatedUrl) && maxCount>0);
     }
+
+    public void waitForElementStaleness(WebDriver driver, Duration timeout, By element) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        wait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(driver.findElement(element))));
+    }
 }

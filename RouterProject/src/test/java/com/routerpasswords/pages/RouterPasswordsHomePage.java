@@ -20,15 +20,6 @@ public class RouterPasswordsHomePage extends BasePage {
         this.driver=driver;
     }
 
-    public void selectManufacturerAndFindPassword(String manufacturer){
-        waitForJavaScriptToLoad(driver);
-        waitForElementToLoad(driver, Duration.ofSeconds(30),routerManufacturerElement);
-        WebElement selectElement = driver.findElement(routerManufacturerElement);
-        Select select=new Select(selectElement);
-        select.selectByValue(manufacturer);
-        driver.findElement(findPasswordBtn).click();
-    }
-
     public void selectAllManufacturerAndStoreData() throws Exception {
         PropertiesFileReader propertiesInstance = PropertiesFileReader.getInstance();
         String url=propertiesInstance.getProperty("url");
@@ -43,6 +34,10 @@ public class RouterPasswordsHomePage extends BasePage {
             manufacturers.add(option.getText());
         }
         for(String option:manufacturers){
+            driver.navigate().refresh();
+            waitForJavaScriptToLoad(driver);
+            waitForElementToLoad(driver, Duration.ofSeconds(30),routerManufacturerElement);
+            waitForElementStaleness(driver, Duration.ofSeconds(30),routerManufacturerElement);
             WebElement selectElementNew = driver.findElement(routerManufacturerElement);
             Select selectNew=new Select(selectElementNew);
             selectNew.selectByValue(option);
@@ -50,7 +45,7 @@ public class RouterPasswordsHomePage extends BasePage {
             reloadPageIfNotLoaded(driver);
             RouterPasswordsResultsPage resultsPage=new RouterPasswordsResultsPage(driver);
             resultsPage.storeRouterDetails();
-            driver.navigate().to(url);
+            driver.get(url);
             waitForJavaScriptToLoad(driver);
             waitForElementToLoad(driver, Duration.ofSeconds(30),routerManufacturerElement);
             reloadPageIfNotLoaded(driver);
