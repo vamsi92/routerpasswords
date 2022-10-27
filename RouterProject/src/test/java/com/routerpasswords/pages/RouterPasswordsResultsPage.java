@@ -26,7 +26,6 @@ public class RouterPasswordsResultsPage extends BasePage{
         waitForJavaScriptToLoad(driver);
         reloadPageIfNotLoaded(driver);
         waitForElementToLoad(driver, Duration.ofSeconds(30),routerPasswordsHeading);
-        reloadPageIfNotLoaded(driver);
         WebElement tableElement=driver.findElement(routerTable);
         scrollToElement(driver,tableElement);
         List<WebElement> tableRows=tableElement.findElements(By.tagName("tr"));

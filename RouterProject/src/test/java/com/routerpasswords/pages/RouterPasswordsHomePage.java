@@ -15,6 +15,7 @@ public class RouterPasswordsHomePage extends BasePage {
 
     private static final By routerManufacturerElement = By.xpath("//select[@class='form-control' and @name='router']");
     private static final By findPasswordBtn = By.xpath("//button[contains(text(),'Find Password')]");
+
     public RouterPasswordsHomePage(WebDriver driver) {
         super(driver);
         this.driver=driver;
@@ -41,10 +42,9 @@ public class RouterPasswordsHomePage extends BasePage {
             Select selectNew=new Select(selectElementNew);
             selectNew.selectByValue(option);
             driver.findElement(findPasswordBtn).click();
-            reloadPageIfNotLoaded(driver);
             RouterPasswordsResultsPage resultsPage=new RouterPasswordsResultsPage(driver);
             resultsPage.storeRouterDetails();
-            driver.get(url);
+            driver.navigate().to(url);
             waitForJavaScriptToLoad(driver);
             waitForElementToLoad(driver, Duration.ofSeconds(30),routerManufacturerElement);
             reloadPageIfNotLoaded(driver);
