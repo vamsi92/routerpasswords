@@ -21,6 +21,28 @@ public class RouterPasswordsHomePage extends BasePage {
         this.driver=driver;
     }
 
+    public List<String> getAllManufacturerURLList() throws Exception {
+        PropertiesFileReader propertiesInstance = PropertiesFileReader.getInstance();
+        String baseResultUrl=propertiesInstance.getProperty("resultUrlBase");
+
+        waitForJavaScriptToLoad(driver);
+        waitForElementToLoad(driver, Duration.ofSeconds(30),routerManufacturerElement);
+        WebElement selectElement = driver.findElement(routerManufacturerElement);
+        Select select=new Select(selectElement);
+        List<WebElement> options=select.getOptions();
+        List<String> manufacturers=new ArrayList<String>();
+        for(WebElement option:options){
+            String out=option.getText();
+            if(out.contains(" ")){
+                out=out.replaceAll( " ","+");
+            }
+            manufacturers.add(baseResultUrl+out);
+        }
+        return manufacturers;
+    }
+
+
+
     public void selectAllManufacturerAndStoreData() throws Exception {
         PropertiesFileReader propertiesInstance = PropertiesFileReader.getInstance();
         String url=propertiesInstance.getProperty("url");

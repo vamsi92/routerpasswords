@@ -37,4 +37,15 @@ public class RouterPasswordsResultsPage extends BasePage{
         }
         ExcelUtils.writeAllDataInSingleFile(listDetails);
     }
+
+    public void iterateAndStoreData(List<String> manufacturers) throws Exception {
+
+        ExcelUtils.createManufacturerList(manufacturers);
+        List<String> urls=ExcelUtils.getManufacturerListForIncompleteStatus();
+        for(String url:urls){
+            driver.get(url);
+            storeRouterDetails();
+            ExcelUtils.updateManufacturerList(url);
+        }
+    }
 }

@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
+import java.util.List;
+
 public class FindAndStorePasswordAllManufacturerTest extends BaseTest{
 
     public WebDriver driver;
@@ -21,7 +23,9 @@ public class FindAndStorePasswordAllManufacturerTest extends BaseTest{
     public void findAndStorePasswordAllManufacturer() throws Exception {
 
         RouterPasswordsHomePage routerPasswordsHomePage = new RouterPasswordsHomePage(driver);
-        routerPasswordsHomePage.selectAllManufacturerAndStoreData();
+        List<String> manufacturers=routerPasswordsHomePage.getAllManufacturerURLList();
+        RouterPasswordsResultsPage resultsPage = new RouterPasswordsResultsPage(driver);
+        resultsPage.iterateAndStoreData(manufacturers);
     }
 
     @After
