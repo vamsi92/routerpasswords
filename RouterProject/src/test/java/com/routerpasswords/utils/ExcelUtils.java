@@ -21,19 +21,32 @@ public class ExcelUtils {
              wb = WorkbookFactory.create(fileInputStream);
              sheet= wb.getSheetAt(0);
 
-            Row rowhead=sheet.createRow(0);
-            Cell modelHeading = rowhead.createCell(0);
-            Cell usernameHeading = rowhead.createCell(1);
-            modelHeading.setCellValue("Model");
-            usernameHeading.setCellValue("Username");
+//            Row rowhead=sheet.createRow(0);
+//            Cell manufacturerHeading = rowhead.createCell(0);
+//            Cell modelHeading = rowhead.createCell(1);
+//            Cell protocolHeading = rowhead.createCell(2);
+//            Cell usernameHeading = rowhead.createCell(3);
+//            Cell passwordHeading = rowhead.createCell(4);
+//            manufacturerHeading.setCellValue("Manufacturer");
+//            modelHeading.setCellValue("Model");
+//            protocolHeading.setCellValue("Protocol");
+//            usernameHeading.setCellValue("Username");
+//            passwordHeading.setCellValue("Password");
             int rowCount = sheet.getLastRowNum();
 
             for (int i =0; i <list.size(); i++) {
                 Row row=sheet.createRow(++rowCount);
                 Cell cell1 = row.createCell(0);
                 Cell cell2 = row.createCell(1);
-                cell1.setCellValue(list.get(i).getModelName());
-                cell2.setCellValue(list.get(i).getUsername());
+                Cell cell3 = row.createCell(2);
+                Cell cell4 = row.createCell(3);
+                Cell cell5 = row.createCell(4);
+
+                cell1.setCellValue(list.get(i).getManufacturerName());
+                cell2.setCellValue(list.get(i).getModelName());
+                cell3.setCellValue(list.get(i).getProtocol());
+                cell4.setCellValue(list.get(i).getUsername());
+                cell5.setCellValue(list.get(i).getPassword());
             }
             fileInputStream.close();
         }
@@ -42,18 +55,31 @@ public class ExcelUtils {
             sheet=wb.createSheet();
 
             Row rowhead=sheet.createRow(0);
-            Cell modelHeading = rowhead.createCell(0);
-            Cell usernameHeading = rowhead.createCell(1);
+            Cell manufacturerHeading = rowhead.createCell(0);
+            Cell modelHeading = rowhead.createCell(1);
+            Cell protocolHeading = rowhead.createCell(2);
+            Cell usernameHeading = rowhead.createCell(3);
+            Cell passwordHeading = rowhead.createCell(4);
+            manufacturerHeading.setCellValue("Manufacturer");
             modelHeading.setCellValue("Model");
+            protocolHeading.setCellValue("Protocol");
             usernameHeading.setCellValue("Username");
+            passwordHeading.setCellValue("Password");
             int rowCount = sheet.getLastRowNum();
 
             for (int i =0; i <list.size(); i++) {
                 Row row=sheet.createRow(++rowCount);
                 Cell cell1 = row.createCell(0);
                 Cell cell2 = row.createCell(1);
-                cell1.setCellValue(list.get(i).getModelName());
-                cell2.setCellValue(list.get(i).getUsername());
+                Cell cell3 = row.createCell(2);
+                Cell cell4 = row.createCell(3);
+                Cell cell5 = row.createCell(4);
+
+                cell1.setCellValue(list.get(i).getManufacturerName());
+                cell2.setCellValue(list.get(i).getModelName());
+                cell3.setCellValue(list.get(i).getProtocol());
+                cell4.setCellValue(list.get(i).getUsername());
+                cell5.setCellValue(list.get(i).getPassword());
             }
         }
         FileOutputStream outputStream = new FileOutputStream(excelFile);
